@@ -37,15 +37,17 @@ a:hover{
 
 nav{
     margin: 0 auto;
+    position: static;
 }
 
 
 nav ul{
-    width: 100%;
+    width: 100vw;
     list-style: none;
     display: flex;
     justify-content: flex-end;
     align-items: center;
+    position: fixed;
 }
 
 ul li{
@@ -847,8 +849,60 @@ ul li:first-child{
 
 
 
+/* loader icon */
+
+.loader{
+    width: 100%;
+    padding: 10px;
+    background: none;
+    margin-top: 10px;
+    text-align: center;
+    font-weight: 900;
+    display: none;
+}
 
 
+.loader.show{
+    display: block;
+}
+
+.loader i{
+    color: #fff;
+    animation: rotateme .4s linear infinite;
+}
+
+@keyframes rotateme{
+    0%{
+        transform: rotate(0deg);
+    }
+
+    100%{
+        transform: rotate(360deg);
+    }
+}
 
 
+.form-message{
+    display: none;
+    width: 100%;
+    background-color: none;
+    margin-top: 10px;
+    text-align: center;
+    font-weight: 900;
+}
 
+.form-message.show{
+    display: block;
+}
+
+
+.success-msg{
+    color: green;
+    line-height: 3;
+}
+
+
+.error-msg{
+    color: red;
+    line-height: 3;
+}

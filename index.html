@@ -5,11 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JosephNwaniJr</title>
     <link rel="icon" type="image/x-icon" href="favicon-32x32.png">
+    <link rel="stylesheet" href="style.css" alt="...">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=html" />
+    <link href="https://cdn.lineicons.com/5.0/lineicons.css" rel="stylesheet" />
 </head>
-<link rel="stylesheet" href="mediaqueries.css" alt="...">
-<link rel="stylesheet" href="style.css" alt="...">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=html" />
-
 <body>
     <nav class="sidebar">
         <ul class="nav-links sidebar">
@@ -66,8 +65,8 @@
                 </div>
                 
                 <div class="section__button-contact">
-                    <button type="button" class="btn btn1" aria-label="Contact Info">Contact Info</button>
-                    <button type="button" class="btn btn2" aria-label="Download CV" onclick="window.location.href='https://drive.google.com/file/d/1kVlWJ5q4A_5RilnLUJEmSJ2XfUmewKH3/view?usp=drive_link'">Download CV</button>
+                    <button type="button" class="btn btn1" aria-label="Contact Info" onclick="window.location.href='#contact'">Contact Info</button>
+                    <button type="button" class="btn btn2" aria-label="Download CV" onclick="window.location.href='https://github.com/joebuggy561/portfolio/blob/main/Joseph%20Nwani%20(3).pdf'">Download CV</button>
                 </div>
             
                 <div class="section__external-info">
@@ -85,7 +84,7 @@
             </div>
            
         </section>
-        <section class="portfolio">
+        <section class="portfolio" id="portfolio">
             <h1>Portfolio</h1>
             <div class="section__portfolio-grid">
                 <div class="section__img-codes">
@@ -112,7 +111,7 @@
             </div>
            
         </section>
-        <section class="about">
+        <section class="about" id="about">
             <h1>About Me.</h1>
             <div class="section__container-details">
                 <div class="section__container-bio">
@@ -164,22 +163,26 @@
                 </div> 
             </div>
         </section>
-        <section class="contact">
+        <section class="contact" id="contact">
             <h1>Contact Me</h1>
-            <form method="#">
+            <form method="#" id="contactForm">
                 <div class="section__input-box">
-                    <input class="input" type="text" placeholder="name" required="">
+                    <input class="input" type="text" placeholder="name" name="name" id="name_" required="">
                 </div>
                 <div class="section__input-box">
-                    <input class="input" type="text" placeholder="email" required="">
+                    <input class="input" type="text" placeholder="email" name="email" id="email_" required="">
                 </div>
                 <div class="section__input-box">
-                    <input class="input" type="text" placeholder="location" required="">
+                    <input class="input" type="text" placeholder="location" name="location" required="">
                 </div>
                 <div class="section__textarea-box">
-                    <textarea focus cols="20" rows="" type="text" placeholder="" class="textArea"></textarea>
+                    <textarea focus cols="20" rows="" type="text" placeholder="" name="message" id="textarea" class="textArea"></textarea>
                 </div>
-                <button class="btn btn2" type="button">Send</button>
+                <button class="btn btn2" type="submit">Send</button>
+                <div class="loader">
+                    <i class="lni lni-spinner-3"></i>
+                </div>
+                <div class="form-message"></div>
             </form>
             <div class="section__footer">
                 <p>Copyright &#169; 2025 JosephnwaniJr. All Rights Reserved.</p>
@@ -187,5 +190,36 @@
         </section>
     </main>
 <script src="script.js"></script>
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script>
+    (function() {
+    emailjs.init("fQumWAVplS6YHb3Dv");
+})();
+
+const msg = document.querySelector(".form-message")
+
+window.onload = function() {
+    document.getElementById('contactForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+        document.querySelector(".loader").classList.add("show")
+        // these IDs from the previous steps
+        emailjs.sendForm('service_4grklhy', 'template_ufvkrai', this)
+            .then(() => {
+                document.getElementById("contactForm").reset();
+                document.querySelector(".loader").classList.remove("show")
+                msg.innerHTML = ""
+                msg.innerHTML += "<span class='success-msg'>Email Sent</span>"
+                msg.classList.add("show")
+                setTimeout(() => msg.classList.remove("show"), 2000);
+            }, 
+            function(error){
+                document.querySelector(".loader").classList.toggle("show");
+                msg.classList.add("show")
+                msg.innerHTML += "<span class='error-msg'>Email Not Sent<span>";
+            });
+    });
+}
+</script>
 </body>
 </html>
